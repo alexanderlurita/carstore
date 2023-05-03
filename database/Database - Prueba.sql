@@ -1,43 +1,48 @@
-DROP DATABASE IF EXISTS tmpDemo;
+DROP DATABASE IF EXISTS carstore;
 
-CREATE DATABASE tmpDemo;
+CREATE DATABASE carstore;
 
-USE tmpDemo;
+USE carstore;
 
 CREATE TABLE automoviles
 (
-	idautomovil			INT AUTO_INCREMENT PRIMARY KEY,
-	marca 				VARCHAR(30) 	NOT NULL,
-	modelo 				VARCHAR(30) 	NOT NULL,
-	precio				DECIMAL(7,2)	NOT NULL,
-	tipocombustible	VARCHAR(20)		NOT NULL,
-	color					VARCHAR(30)		NOT NULL,
-	create_at			DATETIME 		NOT NULL DEFAULT NOW(),
-	update_at			DATETIME 		NULL,
+	idautomovil		INT AUTO_INCREMENT PRIMARY KEY,
+	marca 			VARCHAR(30) 	NOT NULL,
+	modelo 			VARCHAR(30) 	NOT NULL,
+	precio			DECIMAL(7,2)	NOT NULL,
+	tipocombustible		VARCHAR(20)	NOT NULL,
+	color			VARCHAR(30)	NOT NULL,
+	create_at		DATETIME 	NOT NULL DEFAULT NOW(),
+	update_at		DATETIME 	NULL,
 	CONSTRAINT uk_automovil_aut UNIQUE (marca, modelo)
 )ENGINE = INNODB;
 
+-- Registros de prueba
 INSERT INTO automoviles(marca, modelo, precio, tipocombustible, color) VALUES 
 	('Toyota', 'Etios', 58600, 'Gasolina', 'Gris'),
 	('Suzuki', 'Alto 800', 39461, 'GLP', 'Rojo'),
-	('Changan Auto', 'New Alsvin', 46739, 'Diesel', 'Azul'),
+	('Changan', 'New Alsvin', 46739, 'Diesel', 'Azul'),
 	('Renault', 'New Kwid', 46162, 'Gasolina', 'Negro');
 
+-- Procedimientos almacenados
 DELIMITER $$
 CREATE PROCEDURE spu_automoviles_listar()
 BEGIN
-	SELECT idautomovil, marca, modelo, precio, tipocombustible, color
-		FROM automoviles;
+	SELECT	idautomovil, marca, 
+		modelo, precio, 
+		tipocombustible, color
+		FROM automoviles
+		ORDER BY idautomovil DESC;
 END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_automoviles_registrar
 (
-	IN _marca				VARCHAR(30),
-	IN _modelo				VARCHAR(30),
-	IN _precio				DECIMAL(7,2),
+	IN _marca		VARCHAR(30),
+	IN _modelo		VARCHAR(30),
+	IN _precio		DECIMAL(7,2),
 	IN _tipocombustible	VARCHAR(20),
-	IN _color				VARCHAR(30)
+	IN _color		VARCHAR(30)
 )
 BEGIN
 	INSERT INTO automoviles(marca, modelo, precio, tipocombustible, color) VALUES 
@@ -48,11 +53,11 @@ DELIMITER $$
 CREATE PROCEDURE spu_automoviles_actualizar
 (
 	IN _idautomovil		INT,
-	IN _marca				VARCHAR(30),
-	IN _modelo				VARCHAR(30),
-	IN _precio				DECIMAL(7,2),
+	IN _marca		VARCHAR(30),
+	IN _modelo		VARCHAR(30),
+	IN _precio		DECIMAL(7,2),
 	IN _tipocombustible	VARCHAR(20),
-	IN _color				VARCHAR(30)
+	IN _color		VARCHAR(30)
 )
 BEGIN
 	UPDATE automoviles SET
@@ -66,7 +71,7 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_automoviles_getdata
+CREATE PROCEDURE spu_automoviles_obtener
 (
 	IN _idautomovil	INT
 )
@@ -85,4 +90,4 @@ BEGIN
 		WHERE idautomovil = _idautomovil;
 END $$
 
-SELECT * FROM automoviles;
+CALL spu_automoviles_listar();

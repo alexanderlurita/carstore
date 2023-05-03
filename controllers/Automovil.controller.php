@@ -1,6 +1,6 @@
 <?php
 
-require_once '../models/Automovil.model.php';
+require_once '../models/Automovil.php';
 
 if (isset($_POST['operacion'])){
 
@@ -15,10 +15,6 @@ if (isset($_POST['operacion'])){
   }
 
   if ($_POST['operacion'] == 'registrar'){
-    $respuesta = [
-      "status"  => false
-    ];
-
     $datos = [
       "marca"           => $_POST["marca"],
       "modelo"          => $_POST["modelo"],
@@ -26,19 +22,35 @@ if (isset($_POST['operacion'])){
       "tipocombustible" => $_POST["tipocombustible"],
       "color"           => $_POST["color"],
     ];
-    $respuesta["status"] = $automovil->registrar($datos);
-
+    
+    $respuesta = $automovil->registrar($datos);
     echo json_encode($respuesta);
   }
 
   if ($_POST['operacion'] == 'eliminar'){
-    $respuesta = [
-      "status"  => false
+    $respuesta = $automovil->eliminar($_POST['idautomovil']);
+    echo json_encode($respuesta);
+  }
+
+  if ($_POST['operacion'] == 'obtener') {
+    $respuesta = $automovil->obtener($_POST['idautomovil']);
+    echo json_encode($respuesta);
+  }
+
+  if ($_POST['operacion'] == 'actualizar') {
+    $datos = [
+      "idautomovil"     => $_POST["idautomovil"],
+      "marca"           => $_POST["marca"],
+      "modelo"          => $_POST["modelo"],
+      "precio"          => $_POST["precio"],
+      "tipocombustible" => $_POST["tipocombustible"],
+      "color"           => $_POST["color"],
     ];
-
-    $respuesta["status"] = $automovil->eliminar($_POST['idautomovil']);
-
+    
+    $respuesta = $automovil->actualizar($datos);
     echo json_encode($respuesta);
   }
 
 }
+
+?>
