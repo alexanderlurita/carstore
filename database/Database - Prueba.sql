@@ -19,10 +19,10 @@ CREATE TABLE automoviles
 
 -- Registros de prueba
 INSERT INTO automoviles(marca, modelo, precio, tipocombustible, color) VALUES 
-	('Toyota', 'Etios', 58600, 'Gasolina', 'Gris'),
+	('Toyota', 'Etios', 58600, 'Gasolina Premium', 'Gris'),
 	('Suzuki', 'Alto 800', 39461, 'GLP', 'Rojo'),
-	('Changan', 'New Alsvin', 46739, 'Diesel', 'Azul'),
-	('Renault', 'New Kwid', 46162, 'Gasolina', 'Negro');
+	('Changan', 'New Alsvin', 46739, 'GNV', 'Azul'),
+	('Renault', 'New Kwid', 46162, 'Gasolina Regular', 'Negro');
 
 -- Procedimientos almacenados
 DELIMITER $$

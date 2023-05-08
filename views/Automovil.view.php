@@ -13,7 +13,7 @@
 
   <div class="container">
     <div class="mt-3">
-      <h1>CRUD Automóviles</h1>
+      <h1>Automóviles</h1>
       <hr>
     </div>
     <div class="row mt-3">
@@ -67,6 +67,7 @@
             <div class="card-footer text-muted">
               <div class="d-grid gap-2">
                 <button type="button" class="btn btn-success btn-sm" id="guardar">Guardar</button>
+                <button type="reset" class="btn btn-secondary btn-sm">Reiniciar</button>
               </div>
             </div> <!-- Fin card footer -->
           </div> <!-- Fin card -->
@@ -100,7 +101,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header bg-info text-light">
-          <h5 class="modal-title" id="modalTitleId">Actualizar datos</h5>
+          <h5 class="modal-title fw-bold" id="modalTitleId">Actualizar datos</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -196,13 +197,13 @@
                   <td>${element.tipocombustible}</td>
                   <td>${element.color}</td>
                   <td>
-                      <a href='#' class='editar btn btn-info btn-sm' data-idautomovil='${element.idautomovil}'>
-                        Editar
-                      </a>  
-                      <a href='#' class='eliminar btn btn-danger btn-sm' data-idautomovil='${element.idautomovil}'>
-                        Eliminar  
-                      </a>  
-                    </td> 
+                    <a href='#' class='editar btn btn-info btn-sm' data-idautomovil='${element.idautomovil}'>
+                      Editar
+                    </a>  
+                    <a href='#' class='eliminar btn btn-danger btn-sm' data-idautomovil='${element.idautomovil}'>
+                      Eliminar  
+                    </a>  
+                  </td> 
                 </tr>
               `;
 
@@ -293,7 +294,7 @@
         }
       });
 
-      //Proceso de ediciòn
+      //Proceso de edición
       tableBody.addEventListener("click", (event) => {
         if (event.target.classList[0] === 'editar') {
           idautomovil = parseInt(event.target.dataset.idautomovil);
